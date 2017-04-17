@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 app.get('/api/serviceaddress/:address', function (req, res) {
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
             client.query({
-                    text: 'SELECT K.Address, K.Unit, K.Parcelid, K.KAWC_Premise_Id, W.Name, W.Account_Status, W.Charge_Date, W.Billed_Consump, W.Adjustment_Date, W.Consump_Adj,K.Lat, K.Lng FROM KAWC as K JOIN WATER_BILLS as W ON K.KAWC_PREMISE_ID = W.KAWC_PREMISE_ID WHERE K.address = $1 ORDER BY CHARGE_DATE DESC',
+                    text: 'SELECT KAWC.Address, KAWC.Unit, KAWC.Parcelid, KAWC.KAWC_Premise_Id, WATER_BILLS.Name, WATER_BILLS.Account_Status, WATER_BILLS.Charge_Date, WATER_BILLS.Billed_Consump, WATER_BILLS.Adjustment_Date, WATER_BILLS.Consump_Adj,KAWC.Lat, KAWC.Lng FROM KAWC INNER JOIN WATER_BILLS ON KAWC.KAWC_PREMISE_ID = WATER_BILLS.KAWC_PREMISE_ID WHERE KAWC.address = $1 ORDER BY CHARGE_DATE DESC',
                     values: [req.params.address]
                 },function(err, result) {
                     done();
