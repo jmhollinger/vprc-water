@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 app.get('/api/serviceaddress/:address', function (req, res) {
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
             client.query({
-                    text: 'SELECT kawc.address, kawc.unit, kawc.parcelid, kawc.kawc_premise_id FROM kawc WHERE kawc.address = $1',
+                    text: 'SELECT kawc.address, kawc.unit, kawc.parcelid, kawc.kawc_premise_id FROM kawc WHERE kawc.address = \'$1\'',
                     values: [req.params.address]
                 },function(err, result) {
                     done();
