@@ -57,9 +57,7 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
                           {
                               parcel: req.params.parcelid,
                               data: formattedData
-                          }
-
-                          )           }
+                          })           }
                 });
     });
 })
@@ -85,7 +83,6 @@ app.get('/api/serviceaddress/:address', function (req, res) {
                           		status: 'success',
                           		address: req.params.address,
                           		data: result.rows
-
                           	}
 
                           )           }
