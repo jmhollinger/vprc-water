@@ -57,10 +57,9 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
                           {
                               parcel: req.params.parcelid,
                               data: formattedData
-                          })           }
+                          })           })
                 });
     });
-})
 
 
 
