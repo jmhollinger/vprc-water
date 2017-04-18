@@ -29,7 +29,7 @@ app.get('/api/serviceaddress/:address', function (req, res) {
                         		error: err
                         	})  
                     } else {
-                        res.render(
+                        res.json(
                           {
                           		status: 'success',
                           		address: req.params.address,
