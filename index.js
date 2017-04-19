@@ -55,7 +55,7 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
 
                         res.render('parcelReport',
                           {
-                              parcel: req.params.parcelid,
+                              parcelid: req.params.parcelid,
                               data: formattedData
                           })           })
                 });
