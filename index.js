@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
 app.get('/api/address_search/:query', function (req, res) {
       pg.connect(process.env.HEROKU_POSTGRESQL_CYAN_URL, function(err, client, done) {
             client.query({
-                    text: 'SELECT address, unit, parcelid, lat, lng FROM kawc WHERE address ILIKE $1 ORDER BY address ASC;',
+                    text: 'SELECT address, unit, parcelid, lat, lng FROM kawc WHERE address ILIKE $1 ORDER BY address ASC LIMIT 10;',
                     values: ['%' + req.params.query + '%']
                 },function(err, result) {
                     done();
