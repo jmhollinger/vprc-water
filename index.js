@@ -16,6 +16,31 @@ app.get('/', function (req, res) {
   	})
 })
 
+app.get('/api/address_search/:query', function (req, res) {
+      pg.connect(process.env.HEROKU_POSTGRESQL_CYAN_URL, function(err, client, done) {
+            client.query({
+                    text: 'SELECT address, unit, parcelid, lat, lng FROM KAWC WHERE address ILIKE \'%$1%\'',
+                    values: [req.params.query]
+                },function(err, result) {
+                    done();
+                    if (err) {
+                        res.json(
+                          {
+                            status : 'error',
+                            error: err
+                          })  
+                    } else {
+                        res.json(
+                          {
+                            status : 'success',
+                            error: result.rows
+                          }) 
+
+                        }
+         })
+                });
+    });
+
 app.get('/reports/parcel/:parcelid', function (req, res) {
       pg.connect(process.env.HEROKU_POSTGRESQL_CYAN_URL, function(err, client, done) {
             client.query({
