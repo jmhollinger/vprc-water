@@ -34,3 +34,8 @@ th, td {
 .text-center{
   text-align: center;
 }
+
+.list {
+  margin: 0px;
+  padding: 0px;
+}

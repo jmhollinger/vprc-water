@@ -100,9 +100,18 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
                                                   }
                         }
 
+                        pg.connect(process.env.HEROKU_POSTGRESQL_CYAN_URL, function(err, client, done) {
+            client.query({
+                    text: 'SELECT kawc.address FROM kawc WHERE kawc.parcelid = $1;',
+                    values: [req.params.parcelid]
+                },function(err, result) {
+                        var addressName = result.rows[0].address
+                })})
+
                         res.render('reports/parcel',
                           {
                               parcelid: req.params.parcelid,
+                              address: addressName,
                               data: formattedData,
                               length: result.rows.length
                           })           })
