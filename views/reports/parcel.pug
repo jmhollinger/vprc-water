@@ -12,8 +12,9 @@ html(lang='en')
   body
     .page
       h1 Water Service Report
-      p.list Parcel No: #{parcelid}
-      p.list Address: #{address}
+      ul.no-bullets
+        li Parcel No: #{parcelid}
+        li Address: #{address}
       table.water
         thead
           tr

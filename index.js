@@ -120,7 +120,7 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
                               parcelid: req.params.parcelid,
                               address: result.rows[0].address,
                               data: formattedData,
-                              length: result.rows.length
+                              length: data.length
                           })
               } 
 
