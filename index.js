@@ -105,16 +105,28 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
                     text: 'SELECT kawc.address FROM kawc WHERE kawc.parcelid = $1;',
                     values: [req.params.parcelid]
                 },function(err, result) {
-                        var addressName = result.rows[0].address
-                })})
 
-                        res.render('reports/parcel',
+                if (err){
+                        res.json(
+                          {
+                            status : 'error',
+                            error: err
+                          })  
+                }
+                
+                else {        
+                res.render('reports/parcel',
                           {
                               parcelid: req.params.parcelid,
-                              address: addressName,
+                              address: result.rows[0].address,
                               data: formattedData,
                               length: result.rows.length
-                          })           })
+                          })
+              } 
+
+                })})
+
+                                  })
                 });
     });
 
