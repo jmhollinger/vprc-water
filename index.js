@@ -22,6 +22,22 @@ app.get('/', function (req, res) {
   	})
 })
 
+app.get('/reports', function (req, res) {
+  res.render('main', 
+    { 
+      title: 'Reports', 
+      message: 'Hello there!'
+    })
+})
+
+app.get('/import', function (req, res) {
+  res.render('main', 
+    { 
+      title: 'Import', 
+      message: 'Hello there!'
+    })
+})
+
 app.get('/api/address_search/:query', function (req, res) {
       pg.connect(process.env.HEROKU_POSTGRESQL_CYAN_URL, function(err, client, done) {
             client.query({
@@ -84,48 +100,15 @@ app.get('/reports/parcel/:parcelid', function (req, res) {
                                                   }
                         }
 
-                        res.render('parcelReport',
+                        res.render('reports/parcel',
                           {
                               parcelid: req.params.parcelid,
-                              data: formattedData
+                              data: formattedData,
+                              length: result.rows.length
                           })           })
                 });
     });
 
-
-
-app.get('/api/serviceaddress/:address', function (req, res) {
-      pg.connect(process.env.HEROKU_POSTGRESQL_CYAN_URL, function(err, client, done) {
-            client.query({
-                    text: 'SELECT kawc.address, kawc.unit, kawc.parcelid, kawc.kawc_premise_id, water_bills.name, water_bills.account_status, water_bills.charge_date, water_bills.billed_consump, water_bills.adjustment_date, water_bills.consump_adj,kawc.lat, kawc.lng FROM kawc INNER JOIN water_bills on kawc.kawc_premise_id = water_bills.kawc_premise_id WHERE kawc.address = $1 ORDER BY kawc.kawc_premise_id, water_bills.charge_date DESC',
-                    values: [req.params.address]
-                },function(err, result) {
-                    done();
-                    if (err) {
-                        res.json(
-                        	{
-                        		status : 'error',
-                        		error: err
-                        	})  
-                    } else {
-                        res.json(
-                          {
-                          		status: 'success',
-                          		address: req.params.address,
-                          		data: result.rows
-                          	}
-
-                          )           }
-                });
-    });
-})
-
-app.get('/api/noservice/:length', function (req, res) {
-  res.json(  	{ 
-  		address: req.params.length, 
-  		data: 'data'
-  	})
-})
 
 app.listen(process.env.PORT || 3000, function () {
   console.log('Example app listening on port 3000!')
