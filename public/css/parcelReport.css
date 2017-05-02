@@ -35,6 +35,11 @@ th, td {
   text-align: center;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .no-bullets {
+  margin-left: 0px;
   list-style-type: none;
 }
